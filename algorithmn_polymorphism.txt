@@ -1,0 +1,19 @@
+1. The director directs the game
+2. start_game() in direct starts the game
+3. Snake, food and score are transferred to the game
+4. The game listens to the keyboard actions
+- Player one moves using the W, S, A and D keys.
+- Player two moves using the I, K, J and L keys.
+5. If the player moves with no collision, trail grows
+6. Else the player colides with the opponents trail, game over message is printed
+7. If the window is opened, cycle turns white, player keeps moving
+8. else if the window is closed, the game is terminated.
+
+
+Team work parts:
+Name                        Assigned                                                                Email
+___________________         ____________________________________________________________________    _________________________
+Guillermo Quinteros         Snake, Score, Color, Food                                               qui22003@byui.edu        
+Nelson Muchonji B.          Director, Game, VideoService, Keyboard, Point, Cast                     bif20001@byui.edu
+Erika Ramirez               Actor, KeyboardService, MoveActorsAction, Script                        ramirezerika328@gmail.com
+Daniel                      Action, HandleCollisionsAction, DrawActorsAction, ControlActorsAction   das22001@byui.edu
