@@ -1,27 +1,29 @@
-import constants
 from game.casting.actor import Actor
 from game.shared.point import Point
+from game import constants
+
+
 class Snake(Actor):
     """
     A long limbless reptile.
     
     The responsibility of Snake is to move itself.
+
     Attributes:
         _points (int): The number of points the food is worth.
     """
-    def __init__(self):
-        self._body_color = self.set_body_color()
-        self._colors = self.set_colors()
+
+    def __init__(self, head_color, tail_color, position_offset):
         super().__init__()
         self._segments = []
+        self._head_color = head_color
+        self._tail_color = tail_color
+        self._position_offset = position_offset
         self._prepare_body()
-    def set_body_color(self):
-        return constants.GREEN
-    
-    def set_colors(self):
-        return [4, 2]
+
     def get_segments(self):
         return self._segments
+
     def move_next(self):
         # move all segments
         for segment in self._segments:
@@ -32,33 +34,37 @@ class Snake(Actor):
             previous = self._segments[i - 1]
             velocity = previous.get_velocity()
             trailing.set_velocity(velocity)
+
     def get_head(self):
         return self._segments[0]
-    def grow_tail(self, number_of_segments):
+
+    def grow_tail(self, number_of_segments, color):
         for i in range(number_of_segments):
             tail = self._segments[-1]
             velocity = tail.get_velocity()
             offset = velocity.reverse()
             position = tail.get_position().add(offset)
-            
+
             segment = Actor()
             segment.set_position(position)
             segment.set_velocity(velocity)
             segment.set_text("#")
-            segment.set_color(self._body_color)
+            segment.set_color(color)
             self._segments.append(segment)
+
     def turn_head(self, velocity):
         self._segments[0].set_velocity(velocity)
-    
+
     def _prepare_body(self):
-        x = int(constants.MAX_X / self._colors[0])
-        y = int(constants.MAX_Y / self._colors[1])
+        x = int(constants.MAX_X / 2)
+        y = int(constants.MAX_Y / 2)
+
         for i in range(constants.SNAKE_LENGTH):
-            position = Point(x - i * constants.CELL_SIZE, y)
+            position = Point(x - i * constants.CELL_SIZE + self._position_offset, y)
             velocity = Point(1 * constants.CELL_SIZE, 0)
             text = "8" if i == 0 else "#"
-            color = constants.YELLOW if i == 0 else self._body_color
-            
+            color = self._head_color if i == 0 else self._tail_color
+
             segment = Actor()
             segment.set_position(position)
             segment.set_velocity(velocity)

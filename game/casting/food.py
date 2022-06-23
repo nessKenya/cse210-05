@@ -1,14 +1,14 @@
 import random
-import constants
-from game.casting.actor import Actor
-from game.shared.point import Point
-
+from snake.game.casting.actor import Actor
+from snake.game.shared.point import Point
+from snake.game import constants
 
 class Food(Actor):
     """
     A tasty item that snakes like to eat.
     
     The responsibility of Food is to select a random position and points that it's worth.
+
     Attributes:
         _points (int): The number of points the food is worth.
     """
